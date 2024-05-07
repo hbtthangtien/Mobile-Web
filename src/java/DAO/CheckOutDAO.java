@@ -18,36 +18,48 @@ import java.util.logging.Logger;
  *
  * @author hbtth
  */
-public class CheckOutDAO extends dbConfig{
+public class CheckOutDAO extends dbConfig {
 
     public CheckOutDAO() {
         super();
     }
- public void checkOutAllOfProduct(Cart cart, User user) {
+
+    public void checkOutAllOfProduct(Cart cart, User user) {
         int idOrder = createOrder(cart, user);
         for (Item i : cart.getAllItemfromCart()) {
             int idProduct = i.getProduct().getIdProduct();
             int amount = i.getTotalProduct();
             int total = i.getTotalPrice();
             String color = i.getColor();
-            createOrderDetail(idProduct,amount ,total ,color , idOrder);
+            createOrderDetail(idProduct, amount, total, color, idOrder);
         }
-        
+
     }
+
     public static void main(String[] args) {
-        new CheckOutDAO().checkOutAllOfProduct(new Cart("1:1:Purple!", new ProductDAO().getAllProduct()), new UserDAO().getUser(new User("username1","password1")));
+        new CheckOutDAO().checkOutAllOfProduct(new Cart("1:1:Purple!", new ProductDAO().getAllProduct()), new UserDAO().getUser(new User("username1", "password1")));
     }
+
     private void createOrderDetail(int idProduct, int quantity, int totalInvoice, String color, int idOrder) {
-        String sql = "INSERT INTO [dbo].[OrderDetail] ([idOrder],[idProduct],[quantity],[totalInvoice],[capacity],[promotion]) "
-                + "VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO [dbo].[OrderDetail]\n"
+                + "           ([idOrder]\n"
+                + "           ,[idProduct]\n"
+                + "           ,[color]\n"
+                + "           ,[quantity]\n"
+                + "           ,[totalInvoice])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idOrder);
             ps.setInt(2, idProduct);
-            ps.setInt(3, quantity);
-            ps.setInt(4, totalInvoice);
-            ps.setString(5, color);
-            ps.setString(6, "Good");
+            ps.setString(3, color);
+            ps.setInt(4, quantity);
+            ps.setInt(5, totalInvoice);
             int x = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CheckOutDAO.class.getName()).log(Level.SEVERE, null, ex);
