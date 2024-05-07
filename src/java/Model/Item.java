@@ -11,7 +11,7 @@ package Model;
 public class Item {
     private Product product;
     private int price, totalProduct;
-    private String capacity;// color chua thay doi
+    private String color;// color chua thay doi
     public Item() {
     }
 
@@ -48,12 +48,13 @@ public class Item {
         return price*totalProduct;
     }
 
-    public String getCapacity() {
-        return capacity;
+    public String getColor() {
+        return color;
     }
 
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
+    public void setColor(String color) {
+        this.color = color;
     }
+
     
 }

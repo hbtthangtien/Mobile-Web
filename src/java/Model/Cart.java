@@ -78,10 +78,10 @@ public class Cart {
                     String idProduct = formatItem[0];
                     int id = Integer.parseInt(idProduct);
                     int quantity = Integer.parseInt(formatItem[1]);
-                    String capacity = formatItem[2];// color
+                    String color = formatItem[2];// color
                     Product product = getProductByID(id, listProduct);
                     Item item = new Item(product, product.getSalePrice(), quantity);
-                    item.setCapacity(capacity); // color
+                    item.setColor(color); // color
                     addItem(item);
                 }
             }

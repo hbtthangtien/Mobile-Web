@@ -24,6 +24,18 @@
         <servlet-name>logoutController</servlet-name>
         <servlet-class>Controller.logoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cartController</servlet-name>
+        <servlet-class>Controller.cartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>processOnCart</servlet-name>
+        <servlet-class>Controller.processOnCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteController</servlet-name>
+        <servlet-class>Controller.deleteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>homeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>logoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>processOnCart</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteController</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

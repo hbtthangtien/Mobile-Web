@@ -6,13 +6,17 @@
 package Controller;
 
 import DAO.ProductDAO;
+import Model.Cart;
+import Model.Item;
 import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -57,7 +61,37 @@ public class detailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+         Cookie []cookie = request.getCookies();
+        String idProduct = request.getParameter("id");
+        String color = request.getParameter("color"); // color
+        int numberOfProduct = 1;//
+        ProductDAO db = new ProductDAO();
+        List<Product> listProduct = db.getAllProduct();
+        String txtItemOnCart = null;
+        if(cookie != null){
+            for(Cookie i : cookie){
+                if(i.getName().equals("cart")){
+                    txtItemOnCart = i.getValue();
+                    i.setMaxAge(0);
+                    response.addCookie(i);
+                }
+            }
+        }
+        String newItem = idProduct+":"+numberOfProduct+":"+color;
+        if(txtItemOnCart!= null){
+            txtItemOnCart = txtItemOnCart + newItem +"!";
+        }else{
+            txtItemOnCart = newItem +"!";
+        }
+        Cart cart = new Cart(txtItemOnCart, listProduct);
+        StringBuilder sb = new StringBuilder();// 
+        for(Item i : cart.getAllItemfromCart()){
+            sb.append(i.getProduct().getIdProduct()).append(":").append(i.getTotalProduct()).append(":").append(i.getColor()).append("!");
+        }
+        Cookie newCookie = new Cookie("cart",sb.toString());
+        newCookie.setMaxAge(60*60*24*10);
+        response.addCookie(newCookie);
+        response.sendRedirect("cart"); // goi doGet
     }
 
     /** 
