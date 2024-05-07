@@ -61,7 +61,7 @@
                         <a href="listproduct?id=5">REALME</a>
                     </div>
                     <div class="search">
-                        <a href="search"><i class="bx bx-search btn-search"></i></a>
+                        <a><i class="bx bx-search btn-search"></i></a>
                     </div>
                     <c:if test="${sessionScope.User != null}">
                         <div class="cart">
